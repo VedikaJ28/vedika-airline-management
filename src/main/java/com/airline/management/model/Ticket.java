@@ -1,9 +1,18 @@
 package com.airline.management.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Ticket {
+    @JsonProperty("id")
     private Long id_28;
+
+    @JsonProperty("passengerName")
     private String passengerName_28;
+
+    @JsonProperty("seatNumber")
     private String seatNumber_28;
+
+    @JsonProperty("flightId")
     private Long flightId_28;
 
     public Ticket() {}
@@ -15,7 +24,7 @@ public class Ticket {
         this.flightId_28 = flightId_28;
     }
 
-    // Getters and Setters
+    // Getters and Setters remain the same
     public Long getId_28() {
         return id_28;
     }
