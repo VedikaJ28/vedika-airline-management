@@ -14,23 +14,26 @@ import java.util.List;
 public class FlightController {
 
     @Autowired
-    private FlightService flightService_28;
+    private FlightService flightService;
 
     @GetMapping
-    public List<Flight> getAllFlights(@RequestParam(required = false) String sort_28) {
-        return flightService_28.getAllFlights(sort_28);
+    public List<Flight> getAllFlights(@RequestParam(required = false) String sort) {
+        return flightService.getAllFlights(sort);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Flight> getFlightById(@PathVariable Long id_28) {
-        return flightService_28.getFlightById(id_28)
+    public ResponseEntity<Flight> getFlightById(@PathVariable Long id) {
+        return flightService.getFlightById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping("/{id}/schedules")
-    public List<Schedule> getFlightSchedules(@PathVariable Long id_28, @RequestParam(required = false) String dates_28) {
-        // Ignoring 'dates' filter for simplicity
-        return flightService_28.getFlightSchedules(id_28);
+    public ResponseEntity<List<Schedule>> getFlightSchedules(@PathVariable Long id) {
+        List<Schedule> schedules = flightService.getFlightSchedules(id);
+        if (schedules.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(schedules);
     }
 }
