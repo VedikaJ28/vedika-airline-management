@@ -14,20 +14,26 @@ public class TicketController {
     private TicketService ticketService_28;
 
     @PostMapping
-    public Ticket createTicket(@RequestBody Ticket ticket_28) {
-        return ticketService_28.createTicket(ticket_28);
+    public Ticket createTicket(@RequestBody Ticket ticket) {
+        // Map JSON properties to the model with _28 suffix
+        Ticket mappedTicket = new Ticket();
+        mappedTicket.setPassengerName_28(ticket.getPassengerName_28());
+        mappedTicket.setSeatNumber_28(ticket.getSeatNumber_28());
+        mappedTicket.setFlightId_28(ticket.getFlightId_28());
+
+        return ticketService_28.createTicket(mappedTicket);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Ticket> getTicketById(@PathVariable Long id_28) {
-        return ticketService_28.getTicketById(id_28)
+    public ResponseEntity<Ticket> getTicketById(@PathVariable Long id) {
+        return ticketService_28.getTicketById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteTicket(@PathVariable Long id_28) {
-        ticketService_28.deleteTicket(id_28);
+    public ResponseEntity<Void> deleteTicket(@PathVariable Long id) {
+        ticketService_28.deleteTicket(id);
         return ResponseEntity.noContent().build();
     }
 }
