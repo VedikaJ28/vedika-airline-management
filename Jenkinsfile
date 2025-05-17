@@ -1,5 +1,10 @@
 pipeline {
-    agent any
+    agent {
+        docker { 
+            image 'maven:3.9.9-amazoncorretto-17'
+            args '-u root'
+        }
+    }
 
     environment {
         DEPLOY_HOST = "44.204.77.207"
